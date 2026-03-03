@@ -1,0 +1,16 @@
+{
+  "name": "shopifygpt-pro",
+  "version": "0.1.0",
+  "description": "An AI-powered Shopify app that automatically writes product descriptions, generates SEO-optimized content, and creates marketing copy based on product images and basic details. Targets the 2+ million ",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "ai",
+    "saas",
+    "the-firm"
+  ],
+  "author": "The Firm — AI Venture Studio",
+  "license": "MIT"
+}
