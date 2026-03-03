@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopifyGPT Pro - AI-Powered Product Descriptions for Shopify</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #ffffff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            padding: 15px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1a73e8;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #1a73e8;
+        }
+
+        .cta-nav {
+            background: #1a73e8;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+
+        .cta-nav:hover {
+            background: #1557b0;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 120px 0 80px;
+            text-align: center;
+            background: linear-gradient(135deg, #f8faff 0%, #ffffff 100%);
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero .subtitle {
+            font-size: 20px;
+            color: #6b7280;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: #1a73e8;
+            color: white;
+            padding: 16px 32px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            margin-right: 15px;
+        }
+
+        .cta-button:hover {
+            background: #1557b0;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(26, 115, 232, 0.3);
+        }
+
+        .secondary-button {
+            display: inline-block;
+            background: transparent;
+            color: #1a73e8;
+            padding: 16px 32px;
+            border: 2px solid #1a73e8;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 18px;
+            transition: all 0.3s ease;
+        }
+
+        .secondary-button:hover {
+            background: #1a73e8;
+            color: white;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+            background: #ffffff;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 20px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 18px;
+            color: #6b7280;
+            margin-bottom: 60px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .feature-card {
+            padding: 40px;
+            border-radius: 12px;
+            background: #f8faff;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: #1a73e8;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: white;
+        }
+
+        .feature-card h3 {
+            font-size: 24px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 15px;
+        }
+
+        .feature-card p {
+            color: #6b7280;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        /* How It Works */
+        .how-it-works {
+            padding: 80px 0;
+            background: #f9fafb;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .step {
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: #34a853;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 700;
+            margin: 0 auto 20px;
+        }
+
+        .step h3 {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 15px;
+        }
+
+        .step p {
+            color: #6b7280;
+            font-size: 16px;
+        }
+
+        /* Pricing */
+        .pricing {
+            padding: 80px 0;
+            background: #ffffff;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .pricing-card {
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .pricing-card.featured {
+            border-color: #1a73e8;
+            background: linear-gradient(135deg, #f8faff 0%, #ffffff 100%);
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1a73e8;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .plan-name {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 10px;
+        }
+
+        .plan-price {
+            font-size: 48px;
+            font-weight: 700;
+            color: #1a73e8;
+            margin-bottom: 30px;
+        }
+
+        .plan-features {
+            list-style: none;
+            margin-bottom: 40px;
+        }
+
+        .plan-features li {
+            padding: 8px 0;
+            color: #6b7280;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .plan-features li:last-child {
+            border-bottom: none;
+        }
+
+        .plan-button {
+            width: 100%;
+            padding: 15px;
+            background: #1a73e8;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .plan-button:hover {
+            background: #1557b0;
+        }
+
+        .plan-button.secondary {
+            background: transparent;
+            color: #1a73e8;
+            border: 2px solid #1a73e8;
+        }
+
+        .plan-button.secondary:hover {
+            background: #1a73e8;
+            color: white;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 80px 0;
+            background: #f9fafb;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .testimonial-card {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .testimonial-text {
+            font-size: 16px;
+            color: #6b7280;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            background: #1a73e8;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+
+        .author-info h4 {
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .author-info p {
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        /* FAQ */
+        .faq {
+            padding: 80px 0;
+            background: #ffffff;
+        }
+
+        .faq-list {
+            max-width: 800px;
+            margin: 0 auto;
+            margin-top: 60px;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #e5e7eb;
+            padding: 30px 0;
+        }
+
+        .faq-question {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 15px;
+        }
+
+        .faq-answer {
+            color: #6b7280;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            background: #1f2937;
+            color: white;
+            padding: 60px 0 40px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-brand {
+            max-width: 300px;
+        }
+
+        .footer-brand h3 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1a73e8;
+            margin-bottom: 20px;
+        }
+
+        .footer-brand p {
+            color: #9ca3af;
+            line-height: 1.6;
+        }
+
+        .footer-links h4 {
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #9ca3af;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #374151;
+            padding-top: 30px;
+            text-align: center;
+            color: #9ca3af;
+        }
+
+        .email-form {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .email-form input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        .email-form button {
+            padding: 12px 20px;
+            background: #34a853;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .email-form button:hover {
+            background: #2d8f47;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero .subtitle {
+                font-size: 18px;
+            }
+
+            .cta-button, .secondary-button {
+                display: block;
+                margin: 10px auto;
+                text-align: center;
+            }
+
+            .section-title {
+                font-size: 28px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .steps {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .email-form {
+                flex-direction: column;
+            }
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="nav-container">
+                <div class="logo">ShopifyGPT Pro</div>
+                <ul class="nav-links">
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#how-it-works">How It Works</a></li>
+                    <li><a href="#pricing">Pricing</a></li>
+                    <li><a href="#testimonials">Reviews</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                </ul>
+                <a href="#pricing" class="cta-nav">Get Started Free</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Stop Spending Hours Writing Product Descriptions</h1>
+            <p class="subtitle">AI-powered content generation that analyzes your product images and creates SEO-optimized descriptions, marketing copy, and meta tags in seconds. Built specifically for Shopify merchants.</p>
+            <div>
+                <a href="#pricing" class="cta-button">Start Free Trial</a>
+                <a href="#how-it-works" class="secondary-button">See How It Works</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">Save 2-4 Hours Daily on Content Creation</h2>
+            <p class="section-subtitle">Generate high-converting product descriptions, SEO content, and marketing copy with AI that actually understands your products</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🖼️</div>
+                    <h3>GPT-4 Vision Analysis</h3>
+                    <p>Upload product images and our AI analyzes visual elements to generate contextual, accurate descriptions that competitors using text-only inputs simply can't match.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Native Shopify Integration</h3>
+                    <p>One-click import from your Shopify store, bulk processing of 100+ products, and automatic publishing. No CSV exports or manual copy-pasting required.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Brand Voice Training</h3>
+                    <p>Train the AI on your best-performing product pages to maintain consistent brand voice and tone across all generated content.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📈</div>
+                    <h3>Built-in A/B Testing</h3>
+                    <p>Automatically test different description variations to optimize for conversion rates. See which AI-generated copy performs best for your audience.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="how-it-works" class="how-it-works">
+        <div class="container">
+            <h2 class="section-title">From Product Images to Published Descriptions in Minutes</h2>
+            <p class="section-subtitle">Our streamlined process gets your products online faster than ever</p>
+            
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Connect Your Store</h3>
+                    <p>Install the Shopify app and authenticate your store in under 2 minutes</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Upload Products</h3>
+                    <p>Import products with images directly from Shopify or upload in bulk</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>AI Analyzes & Writes</h3>
+                    <p>GPT-4 Vision examines images and generates optimized descriptions, titles, and meta tags</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Review & Publish</h3>
+                    <p>Edit if needed and publish directly to your Shopify store with one click</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section id="pricing" class="pricing">
+        <div class="container">
+            <h2 class="section-title">Choose Your Plan</h2>
+            <p class="section-subtitle">40-60% less expensive than enterprise solutions, with all the features Shopify merchants need</p>
+            
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="plan-name">Starter</div>
+                    <div class="plan-price">$0<span style="font-size: 18px; color: #6b7280;">/mo</span></div>
+                    <ul class="plan-features">
+                        <li>10 product descriptions/month</li>
+                        <li>Basic templates</li>
+                        <li>GPT-3.5 generation</li>
+                        <li>Email support</li>
+                    </ul>
+                    <button class="plan-button secondary">Get Started Free</button>
+                </div>
+                
+                <div class="pricing-card featured">
+                    <div class="popular-badge">Most Popular</div>
+                    <div class="plan-name">Growth</div>
+                    <div class="plan-price">$19<span style="font-size: 18px; color: #6b7280;">/mo</span></div>
+                    <ul class="plan-features">
+                        <li>100 products/month</li>
+                        <li>GPT-4 generation</li>
+                        <li>Bulk upload</li>
+                        <li>SEO optimization</li>
+                        <li>A/B testing</li>
+                    </ul>
+                    <button class="plan-button">Start Free Trial</button>
+                </div>
+                
+                <div class="pricing-card">
+                    <div class="plan-name">Scale</div>
+                    <div class="plan-price">$49<span style="font-size: 18px; color: #6b7280;">/mo</span></div>
+                    <ul class="plan-features">
+                        <li>500 products/month</li>
+                        <li>Custom brand voice</li>
+                        <li>Multi-language support</li>
+                        <li>API access</li>
+                        <li>Priority support</li>
+                    </ul>
+                    <button class="plan-button">Start Free Trial</button>
+                </div>
+                
+                <div class="pricing-card">
+                    <div class="plan-name">Enterprise</div>
+                    <div class="plan-price">$149<span style="font-size: 18px; color: #6b7280;">/mo</span></div>
+                    <ul class="plan-features">
+                        <li>Unlimited products</li>
+                        <li>White-label solution</li>
+                        <li>Advanced analytics</li>
+                        <li>Dedicated account manager</li>
+                        <li>Custom integrations</li>
+                    </ul>
+                    <button class="plan-button">Contact Sales</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials" class="testimonials">
+        <div class="container">
+            <h2 class="section-title">Trusted by 10,000+ Shopify Merchants</h2>
+            <p class="section-subtitle">See how ShopifyGPT Pro is helping store owners save time and increase conversions</p>
+            
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"I was spending 3+ hours daily writing product descriptions for my dropshipping store. ShopifyGPT Pro cut that down to 30 minutes and the conversion rates are actually higher than my manual descriptions. Game changer!"</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">MK</div>
+                        <div class="author-info">
+                            <h4>Mike Chen</h4>
+                            <p>Founder, TechGadgets Store</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"As a Shopify agency, we manage 20+ client stores. ShopifyGPT Pro's bulk processing and brand voice training lets us maintain quality while scaling our operations. Our clients love the results."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">SR</div>
+                        <div class="author-info">
+                            <h4>Sarah Rodriguez</h4>
+                            <p>CEO, E-comm Solutions Agency</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"The GPT-4 Vision feature is incredible. It actually understands our jewelry products from photos and creates descriptions that sound like they were written by someone who knows the industry. Saved us thousands on copywriters."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">JL</div>
+                        <div class="author-info">
+                            <h4>Jessica Liu</h4>
+                            <p>Owner, Luxe Jewelry Co</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="faq">
+        <div class="container">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            
+            <div class="faq-list">
+                <div class="faq-item">
+                    <h3 class="faq-question">How is this different from ChatGPT or other AI tools?</h3>
+                    <p class="faq-answer">ShopifyGPT Pro is built specifically for Shopify with native integration, bulk processing, and GPT-4 Vision that analyzes product images. Generic AI tools require manual copy-pasting and can't understand visual product details like colors, materials, or style.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3 class="faq-question">Will the generated content hurt my SEO rankings?</h3>
+                    <p class="faq-answer">No. Our AI creates unique, contextual content for each product, solving the duplicate content problem that dropshippers face. Plus, we optimize for Shopify-specific SEO including meta titles, descriptions, and alt tags.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3 class="faq-question">How long does it take to process products?</h3>
+                    <p class="faq-answer">Individual products take 30-60 seconds. Bulk processing of 100 products typically completes in under 30 minutes. Much faster than writing manually or using generic tools that require individual prompts.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3 class="faq-question">Can I maintain my brand voice?</h3>
+                    <p class="faq-answer">Yes! Our brand voice training analyzes your best-performing product pages to learn your tone, style, and messaging. The AI then generates new content that matches your established brand voice.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3 class="faq-question">What if I'm not satisfied with the results?</h3>
+                    <p class="faq-answer">All paid plans include a 14-day free trial. If you're not seeing better results than manual writing or other tools, we'll refund your money. We also offer unlimited revisions on the Growth plan and above.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>ShopifyGPT Pro</h3>
+                    <p>AI-powered content generation built specifically for Shopify merchants. Save time, increase conversions, and scale your e-commerce business faster.</p>
+                    <div class="email-form">
+                        <input type="email" placeholder="Enter your email">
+                        <button type="submit">Subscribe</button>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#how-it-works">How It Works</a></li>
+                        <li><a href="#">API Docs</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Status</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Privacy</a></li>
+                        <li><a href="#">Terms</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 ShopifyGPT Pro. All rights reserved. Made for Shopify merchants who want to scale smarter.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
